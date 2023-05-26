@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { electron } from 'process'
 
 function createWindow() {
   // Create the browser window.
@@ -33,6 +34,7 @@ function createWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+  return mainWindow
 }
 
 // This method will be called when Electron has finished
@@ -49,7 +51,14 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  createWindow()
+  const oj = {}
+
+  oj.mainWindow = createWindow()
+
+  dialog.showMessageBox(oj.mainWindow, {
+    message: 'Hello World!',
+    
+  })
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

@@ -12,5 +12,7 @@ function Versions() {
     </ul>
   )
 }
-
+const testRender = TestRenderer.create(<version />);
+const testInstance = testRender.root;
 export default Versions
+
